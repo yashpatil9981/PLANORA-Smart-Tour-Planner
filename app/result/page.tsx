@@ -11,16 +11,7 @@ type SavedTrip = {
   interests: string[];
   itinerary: string;
   savedAt: string;
-  userEmail: string;
-};
-
-type DayPlan = {
-  day: number;
-  title: string;
-  morning: string;
-  afternoon: string;
-  evening: string;
-  extra: string[];
+  userEmail?: string;
 };
 
 export default function ResultPage() {
@@ -38,10 +29,17 @@ export default function ResultPage() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
 
-    const destinationParam = params.get("destination") || "Goa";
-    const daysParam = Number(params.get("days")) || 3;
-    const travelersParam = Number(params.get("travelers")) || 2;
-    const budgetParam = Number(params.get("budget")) || 15000;
+    const destinationParam =
+      params.get("destination") || "Goa";
+
+    const daysParam =
+      Number(params.get("days")) || 3;
+
+    const travelersParam =
+      Number(params.get("travelers")) || 2;
+
+    const budgetParam =
+      Number(params.get("budget")) || 15000;
 
     const interestsParam = params.get("interests")
       ? params
@@ -77,19 +75,22 @@ export default function ResultPage() {
       setLoading(true);
       setError("");
 
-      const response = await fetch("/api/generate-trip", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          destination: tripDestination,
-          days: tripDays,
-          travelers: tripTravelers,
-          budget: tripBudget,
-          interests: tripInterests,
-        }),
-      });
+      const response = await fetch(
+        "/api/generate-trip",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            destination: tripDestination,
+            days: tripDays,
+            travelers: tripTravelers,
+            budget: tripBudget,
+            interests: tripInterests,
+          }),
+        }
+      );
 
       const data = await response.json();
 
@@ -116,7 +117,8 @@ export default function ResultPage() {
   const saveTrip = () => {
     if (!itinerary) return;
 
-    const savedUser = localStorage.getItem("tourmateUser");
+    const savedUser =
+      localStorage.getItem("tourmateUser");
 
     if (!savedUser) {
       alert("Please login before saving a trip.");
@@ -129,7 +131,9 @@ export default function ResultPage() {
     try {
       user = JSON.parse(savedUser);
     } catch {
-      alert("Login information is invalid. Please login again.");
+      alert(
+        "Login information is invalid. Please login again."
+      );
       window.location.href = "/login";
       return;
     }
@@ -140,9 +144,10 @@ export default function ResultPage() {
       return;
     }
 
-    const existingTrips: SavedTrip[] = JSON.parse(
-      localStorage.getItem("savedTrips") || "[]"
-    );
+    const existingTrips: SavedTrip[] =
+      JSON.parse(
+        localStorage.getItem("savedTrips") || "[]"
+      );
 
     const alreadySaved = existingTrips.some(
       (trip) =>
@@ -176,10 +181,14 @@ export default function ResultPage() {
 
     localStorage.setItem(
       "savedTrips",
-      JSON.stringify([...existingTrips, newTrip])
+      JSON.stringify([
+        ...existingTrips,
+        newTrip,
+      ])
     );
 
     setSaved(true);
+
     alert("Trip saved successfully!");
   };
 
@@ -187,6 +196,7 @@ export default function ResultPage() {
   const stayCost = Math.round(budget * 0.30);
   const foodCost = Math.round(budget * 0.15);
   const activityCost = Math.round(budget * 0.20);
+
   const miscCost =
     budget -
     travelCost -
@@ -198,143 +208,214 @@ export default function ResultPage() {
     `https://www.google.com/maps/search/` +
     encodeURIComponent(destination);
 
-  const dayPlans = parseItinerary(itinerary, days);
-
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="relative min-h-screen overflow-hidden bg-[#09001f] text-white">
 
-      {/* Navbar */}
-      <nav className="border-b bg-white px-6 py-5">
-        <div className="mx-auto flex max-w-6xl items-center justify-between">
+      {/* ================= BACKGROUND ================= */}
+
+      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+
+        <div className="absolute -left-40 -top-40 h-[500px] w-[500px] rounded-full bg-pink-600/30 blur-[120px] animate-pulse" />
+
+        <div className="absolute -right-40 top-0 h-[500px] w-[500px] rounded-full bg-cyan-500/30 blur-[120px] animate-pulse" />
+
+        <div className="absolute bottom-[-200px] left-[20%] h-[500px] w-[500px] rounded-full bg-purple-600/30 blur-[120px] animate-pulse" />
+
+        <div className="absolute bottom-[-150px] right-[10%] h-[450px] w-[450px] rounded-full bg-orange-500/20 blur-[120px] animate-pulse" />
+
+        <div className="absolute left-[15%] top-[30%] h-3 w-3 rounded-full bg-cyan-300 shadow-[0_0_25px_8px_rgba(34,211,238,0.5)] animate-pulse" />
+
+        <div className="absolute right-[20%] top-[45%] h-3 w-3 rounded-full bg-pink-300 shadow-[0_0_25px_8px_rgba(244,114,182,0.5)] animate-pulse" />
+
+      </div>
+
+      {/* ================= NAVBAR ================= */}
+
+      <nav className="sticky top-0 z-50 border-b border-white/10 bg-[#09001f]/75 px-6 py-5 backdrop-blur-2xl">
+
+        <div className="mx-auto flex max-w-7xl items-center justify-between">
+
           <a
             href="/"
-            className="text-2xl font-bold text-blue-600"
+            className="text-2xl font-black"
           >
-            TourMate
+            ✈️{" "}
+            <span className="bg-gradient-to-r from-cyan-300 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
+              Smart Tour by YSP
+            </span>
           </a>
 
-          <div className="flex gap-5 text-sm font-medium">
+          <div className="flex gap-3">
+
             <a
               href="/plan"
-              className="text-gray-600 hover:text-blue-600"
+              className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-5 py-2.5 text-sm font-bold text-cyan-300 transition hover:bg-cyan-400/20"
             >
-              Plan Trip
+              🧭 Plan Trip
             </a>
 
             <a
               href="/saved"
-              className="text-gray-600 hover:text-blue-600"
+              className="rounded-full border border-fuchsia-400/20 bg-fuchsia-400/10 px-5 py-2.5 text-sm font-bold text-fuchsia-300 transition hover:bg-fuchsia-400/20"
             >
-              Saved Trips
+              🧳 Saved Trips
             </a>
+
           </div>
+
         </div>
+
       </nav>
 
-      <section className="px-6 py-12">
-        <div className="mx-auto max-w-6xl">
+      {/* ================= PAGE ================= */}
 
-          {/* Header */}
+      <section className="relative px-5 py-12 md:px-8">
+
+        <div className="mx-auto max-w-7xl">
+
+          {/* ================= HEADER ================= */}
+
           <div className="mb-8">
+
             <a
               href="/plan"
-              className="text-sm font-semibold text-blue-600 hover:text-blue-700"
+              className="text-sm font-bold text-cyan-300 transition hover:text-fuchsia-300"
             >
               ← Plan Another Trip
             </a>
 
-            <div className="mt-5 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <div className="mt-6 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+
               <div>
-                <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">
-                  Your Travel Plan
+
+                <p className="text-sm font-black uppercase tracking-[0.25em] text-cyan-300">
+                  ✨ Your Travel Plan
                 </p>
 
-                <h1 className="mt-2 text-4xl font-bold capitalize text-gray-900 md:text-5xl">
-                  {destination} Trip
+                <h1 className="mt-3 text-5xl font-black capitalize md:text-6xl">
+
+                  {destination}{" "}
+
+                  <span className="bg-gradient-to-r from-cyan-300 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
+                    Trip
+                  </span>
+
                 </h1>
 
-                <p className="mt-3 text-gray-600">
+                <p className="mt-4 text-lg text-white/50">
                   A personalized {days}-day plan for{" "}
                   {travelers} traveler
                   {travelers !== 1 ? "s" : ""}.
                 </p>
+
               </div>
 
               {!loading && !error && (
-                <div className="rounded-2xl bg-green-50 px-5 py-3 text-sm font-semibold text-green-700">
+
+                <div className="rounded-full border border-emerald-400/20 bg-emerald-500/10 px-5 py-3 text-sm font-black text-emerald-300">
                   ✓ Trip Ready
                 </div>
+
               )}
+
             </div>
+
           </div>
 
-          {/* Summary */}
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+          {/* ================= SUMMARY ================= */}
+
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+
             <SummaryCard
               icon="📅"
-              label="Duration"
+              title="Duration"
               value={`${days} Days`}
+              color="cyan"
             />
+
             <SummaryCard
               icon="👥"
-              label="Travelers"
+              title="Travelers"
               value={String(travelers)}
+              color="fuchsia"
             />
+
             <SummaryCard
               icon="💰"
-              label="Budget"
+              title="Budget"
               value={`₹${budget.toLocaleString("en-IN")}`}
+              color="emerald"
             />
+
             <SummaryCard
               icon="❤️"
-              label="Interests"
+              title="Interests"
               value={String(interests.length)}
+              color="orange"
             />
+
           </div>
 
-          {/* Interests */}
+          {/* ================= INTERESTS ================= */}
+
           {interests.length > 0 && (
-            <div className="mt-6 rounded-2xl border bg-white p-6 shadow-sm">
-              <h2 className="text-xl font-bold">
-                Your Interests
+
+            <div className="mt-6 rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur-2xl">
+
+              <h2 className="text-xl font-black">
+                ⭐ Your Interests
               </h2>
 
-              <div className="mt-4 flex flex-wrap gap-2">
+              <div className="mt-4 flex flex-wrap gap-3">
+
                 {interests.map((interest) => (
+
                   <span
                     key={interest}
-                    className="rounded-full bg-blue-50 px-4 py-2 text-sm font-medium text-blue-700"
+                    className="rounded-full border border-fuchsia-400/20 bg-fuchsia-500/10 px-4 py-2 text-sm font-bold text-fuchsia-300"
                   >
                     ❤️ {interest}
                   </span>
+
                 ))}
+
               </div>
+
             </div>
+
           )}
 
-          {/* Loading */}
-          {loading && (
-            <div className="mt-8 rounded-3xl border bg-white p-14 text-center shadow-sm">
-              <div className="mx-auto h-12 w-12 animate-spin rounded-full border-4 border-blue-100 border-t-blue-600" />
+          {/* ================= LOADING ================= */}
 
-              <h2 className="mt-6 text-2xl font-bold">
+          {loading && (
+
+            <div className="mt-8 rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-violet-900/50 via-fuchsia-900/30 to-blue-900/50 p-16 text-center shadow-2xl backdrop-blur-2xl">
+
+              <div className="mx-auto h-16 w-16 animate-spin rounded-full border-4 border-white/10 border-t-cyan-400 border-r-fuchsia-500" />
+
+              <h2 className="mt-7 text-3xl font-black">
                 Creating Your Trip...
               </h2>
 
-              <p className="mt-2 text-gray-600">
-                Preparing your personalized itinerary.
+              <p className="mt-3 text-white/50">
+                Preparing your personalized itinerary ✈️
               </p>
+
             </div>
+
           )}
 
-          {/* Error */}
+          {/* ================= ERROR ================= */}
+
           {!loading && error && (
-            <div className="mt-8 rounded-3xl border border-red-200 bg-red-50 p-7">
-              <h2 className="text-2xl font-bold text-red-700">
-                Unable to generate trip
+
+            <div className="mt-8 rounded-[2rem] border border-red-400/20 bg-red-500/10 p-8 backdrop-blur-xl">
+
+              <h2 className="text-2xl font-black text-red-300">
+                ⚠️ Unable to generate trip
               </h2>
 
-              <p className="mt-3 text-red-600">
+              <p className="mt-3 text-red-200/70">
                 {error}
               </p>
 
@@ -348,58 +429,118 @@ export default function ResultPage() {
                     interests
                   )
                 }
-                className="mt-6 rounded-xl bg-red-600 px-6 py-3 font-semibold text-white hover:bg-red-700"
+                className="mt-6 rounded-2xl bg-gradient-to-r from-red-500 to-pink-500 px-7 py-3 font-black text-white transition hover:scale-105"
               >
-                Try Again
+                Try Again →
               </button>
+
             </div>
+
           )}
 
-          {/* Main Content */}
+          {/* ================= CONTENT ================= */}
+
           {!loading && !error && itinerary && (
+
             <>
-              {/* Itinerary */}
-              <div className="mt-8 rounded-3xl border bg-white p-7 shadow-sm md:p-9">
-                <div className="flex flex-col justify-between gap-3 md:flex-row md:items-center">
+
+              {/* ITINERARY */}
+
+              <div className="mt-8 rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-white/10 p-7 shadow-2xl backdrop-blur-2xl md:p-9">
+
+                <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+
                   <div>
-                    <h2 className="text-3xl font-bold">
+
+                    <h2 className="text-3xl font-black">
                       🗺️ Your Itinerary
                     </h2>
 
-                    <p className="mt-1 text-gray-500">
+                    <p className="mt-1 text-white/40">
                       Day-by-day travel plan
                     </p>
+
                   </div>
 
-                  <span className="rounded-full bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700">
+                  <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-sm font-black text-cyan-300">
                     {days} Days
                   </span>
+
                 </div>
 
                 <div className="mt-8 space-y-5">
-                  {dayPlans.map((day) => (
-                    <DayCard key={day.day} day={day} />
-                  ))}
+
+                  {itinerary
+                    .split(/(?=DAY \d+)/i)
+                    .filter((section) => section.trim())
+                    .map((section, index) => {
+
+                      const lines =
+                        section.trim().split("\n");
+
+                      const title =
+                        lines[0] ||
+                        `Day ${index + 1}`;
+
+                      const content =
+                        lines.slice(1).join("\n");
+
+                      return (
+
+                        <div
+                          key={index}
+                          className="group rounded-3xl border border-white/10 bg-gradient-to-br from-cyan-500/10 via-fuchsia-500/5 to-purple-500/10 p-6 transition duration-300 hover:border-cyan-400/20 hover:shadow-xl hover:shadow-purple-500/10"
+                        >
+
+                          <div className="flex items-center gap-4">
+
+                            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 via-fuchsia-500 to-pink-500 text-lg font-black shadow-lg shadow-fuchsia-500/20">
+                              {index + 1}
+                            </div>
+
+                            <h3 className="text-xl font-black">
+                              {title.replace(
+                                /DAY /i,
+                                "Day "
+                              )}
+                            </h3>
+
+                          </div>
+
+                          <div className="mt-5 whitespace-pre-wrap leading-8 text-white/65">
+                            {content}
+                          </div>
+
+                        </div>
+
+                      );
+                    })}
+
                 </div>
+
               </div>
 
-              {/* Budget */}
-              <div className="mt-8 rounded-3xl border bg-white p-7 shadow-sm md:p-9">
-                <h2 className="text-3xl font-bold">
+              {/* ================= BUDGET ================= */}
+
+              <div className="mt-8 rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-emerald-500/10 via-white/5 to-cyan-500/10 p-7 shadow-2xl backdrop-blur-2xl md:p-9">
+
+                <h2 className="text-3xl font-black">
                   💰 Budget Breakdown
                 </h2>
 
-                <p className="mt-2 text-gray-600">
+                <p className="mt-2 text-white/50">
                   Estimated allocation of your ₹
                   {budget.toLocaleString("en-IN")} budget.
                 </p>
 
-                <div className="mt-8 space-y-6">
+                <div className="mt-8 space-y-7">
+
                   <BudgetRow
                     icon="🚗"
                     title="Travel"
                     amount={travelCost}
                     percentage={25}
+                    gradient="from-cyan-400 to-blue-600"
                   />
 
                   <BudgetRow
@@ -407,6 +548,7 @@ export default function ResultPage() {
                     title="Stay"
                     amount={stayCost}
                     percentage={30}
+                    gradient="from-fuchsia-400 to-purple-600"
                   />
 
                   <BudgetRow
@@ -414,6 +556,7 @@ export default function ResultPage() {
                     title="Food"
                     amount={foodCost}
                     percentage={15}
+                    gradient="from-orange-400 to-red-500"
                   />
 
                   <BudgetRow
@@ -421,6 +564,7 @@ export default function ResultPage() {
                     title="Activities"
                     amount={activityCost}
                     percentage={20}
+                    gradient="from-emerald-400 to-green-600"
                   />
 
                   <BudgetRow
@@ -428,34 +572,44 @@ export default function ResultPage() {
                     title="Miscellaneous"
                     amount={miscCost}
                     percentage={10}
+                    gradient="from-yellow-400 to-orange-500"
                   />
+
                 </div>
 
-                <div className="mt-8 flex items-center justify-between border-t pt-6">
-                  <span className="text-lg font-bold">
+                <div className="mt-8 flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-5">
+
+                  <span className="font-black">
                     Total Estimated Budget
                   </span>
 
-                  <span className="text-3xl font-bold text-blue-600">
+                  <span className="bg-gradient-to-r from-cyan-300 via-fuchsia-400 to-pink-400 bg-clip-text text-3xl font-black text-transparent">
                     ₹{budget.toLocaleString("en-IN")}
                   </span>
+
                 </div>
+
               </div>
 
-              {/* Map */}
-              <div className="mt-8 rounded-3xl border bg-white p-7 shadow-sm md:p-9">
-                <h2 className="text-3xl font-bold">
+              {/* ================= MAP ================= */}
+
+              <div className="mt-8 rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-blue-500/10 via-white/5 to-cyan-500/10 p-7 shadow-2xl backdrop-blur-2xl md:p-9">
+
+                <h2 className="text-3xl font-black">
                   📍 Explore {destination}
                 </h2>
 
-                <p className="mt-2 text-gray-600">
+                <p className="mt-2 text-white/50">
                   Open the destination directly in Google Maps.
                 </p>
 
-                <div className="mt-6 rounded-2xl bg-blue-50 p-10 text-center">
-                  <div className="text-6xl">🗺️</div>
+                <div className="mt-6 overflow-hidden rounded-3xl border border-cyan-400/10 bg-gradient-to-br from-cyan-500/10 via-blue-500/10 to-purple-500/10 p-12 text-center">
 
-                  <h3 className="mt-4 text-2xl font-bold capitalize">
+                  <div className="text-7xl">
+                    🗺️
+                  </div>
+
+                  <h3 className="mt-5 text-3xl font-black capitalize">
                     {destination}
                   </h3>
 
@@ -463,320 +617,174 @@ export default function ResultPage() {
                     href={mapUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-6 inline-block rounded-xl bg-blue-600 px-7 py-3 font-semibold text-white hover:bg-blue-700"
+                    className="mt-7 inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 font-black text-white shadow-xl shadow-cyan-500/20 transition hover:scale-105"
                   >
-                    Open Google Maps
+                    📍 Open Google Maps →
                   </a>
+
                 </div>
+
               </div>
 
-              {/* Actions */}
+              {/* ================= ACTIONS ================= */}
+
               <div className="mt-8">
+
                 <button
                   onClick={saveTrip}
                   disabled={saved}
-                  className={`w-full rounded-xl py-4 font-semibold text-white transition ${
+                  className={`w-full rounded-2xl py-5 text-lg font-black text-white shadow-2xl transition ${
                     saved
-                      ? "cursor-not-allowed bg-gray-500"
-                      : "bg-green-600 hover:bg-green-700"
+                      ? "cursor-not-allowed bg-emerald-600/50"
+                      : "bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-600 shadow-cyan-500/20 hover:scale-[1.02] hover:shadow-cyan-500/40"
                   }`}
                 >
                   {saved
-                    ? "✅ Trip Saved"
+                    ? "✅ Trip Saved Successfully"
                     : "💾 Save This Trip"}
                 </button>
 
                 <div className="mt-4 grid gap-4 md:grid-cols-2">
+
                   <a
                     href="/saved"
-                    className="rounded-xl border bg-white py-4 text-center font-semibold text-gray-800 hover:bg-gray-50"
+                    className="rounded-2xl border border-fuchsia-400/20 bg-fuchsia-500/10 py-4 text-center font-black text-fuchsia-300 transition hover:scale-[1.02] hover:bg-fuchsia-500/20"
                   >
-                    📁 View Saved Trips
+                    📁 View Saved Trips →
                   </a>
 
                   <a
                     href="/plan"
-                    className="rounded-xl bg-blue-600 py-4 text-center font-semibold text-white hover:bg-blue-700"
+                    className="rounded-2xl bg-gradient-to-r from-cyan-500 via-fuchsia-500 to-pink-500 py-4 text-center font-black text-white shadow-xl shadow-fuchsia-500/20 transition hover:scale-[1.02]"
                   >
-                    ✨ Plan Another Trip
+                    ✨ Plan Another Trip →
                   </a>
+
                 </div>
+
               </div>
+
             </>
+
           )}
+
         </div>
+
       </section>
+
+      {/* ================= FOOTER ================= */}
+
+      <footer className="border-t border-white/10 bg-black/20 px-6 py-10 text-center backdrop-blur-xl">
+
+        <p className="text-xl font-black">
+          ✈️{" "}
+          <span className="bg-gradient-to-r from-cyan-300 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
+            Smart Tour by YSP
+          </span>
+        </p>
+
+        <p className="mt-2 text-sm text-white/40">
+          Plan smarter. Travel better.
+        </p>
+
+      </footer>
+
     </main>
   );
 }
 
-function parseItinerary(
-  text: string,
-  totalDays: number
-): DayPlan[] {
-  const fallback = Array.from({ length: totalDays }, (_, index) => ({
-    day: index + 1,
-    title: `Day ${index + 1}`,
-    morning: "",
-    afternoon: "",
-    evening: "",
-    extra: [],
-  }));
-
-  if (!text.trim()) return fallback;
-
-  const sections = text
-    .split(/(?=DAY\s+\d+)/i)
-    .map((section) => section.trim())
-    .filter((section) => /^DAY\s+\d+/i.test(section));
-
-  const parsed = sections.map((section, index) => {
-    const lines = section
-      .split("\n")
-      .map((line) => line.trim())
-      .filter(Boolean);
-
-    const dayMatch = lines[0]?.match(/DAY\s+(\d+)/i);
-    const dayNumber = dayMatch
-      ? Number(dayMatch[1])
-      : index + 1;
-
-    const content = lines.slice(1);
-
-    const morning = extractSection(
-      content,
-      /^(Morning|🌅 Morning)\s*:/i
-    );
-
-    const afternoon = extractSection(
-      content,
-      /^(Afternoon|☀️ Afternoon)\s*:/i
-    );
-
-    const evening = extractSection(
-      content,
-      /^(Evening|🌙 Evening)\s*:/i
-    );
-
-    const used = new Set([
-      morning.index,
-      afternoon.index,
-      evening.index,
-    ]);
-
-    const extra = content.filter(
-      (_, lineIndex) => !used.has(lineIndex)
-    );
-
-    return {
-      day: dayNumber,
-      title: `Day ${dayNumber}`,
-      morning: morning.value,
-      afternoon: afternoon.value,
-      evening: evening.value,
-      extra,
-    };
-  });
-
-  if (parsed.length === 0) {
-    return fallback.map((day) => ({
-      ...day,
-      extra: [text],
-    }));
-  }
-
-  return parsed;
-}
-
-function extractSection(
-  lines: string[],
-  pattern: RegExp
-): { value: string; index: number } {
-  const index = lines.findIndex((line) => pattern.test(line));
-
-  if (index === -1) {
-    return {
-      value: "",
-      index: -1,
-    };
-  }
-
-  const firstLine = lines[index]
-    .replace(pattern, "")
-    .trim();
-
-  const nextHeading = lines.findIndex(
-    (line, lineIndex) =>
-      lineIndex > index &&
-      /^(Morning|Afternoon|Evening|🌅 Morning|☀️ Afternoon|🌙 Evening)\s*:/i.test(
-        line
-      )
-  );
-
-  const end =
-    nextHeading === -1 ? lines.length : nextHeading;
-
-  const rest = lines.slice(index + 1, end);
-
-  return {
-    value: [firstLine, ...rest].filter(Boolean).join(" "),
-    index,
-  };
-}
-
-function DayCard({ day }: { day: DayPlan }) {
-  return (
-    <div className="overflow-hidden rounded-2xl border bg-gray-50">
-      <div className="flex items-center gap-3 border-b bg-white px-6 py-5">
-        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 font-bold text-white">
-          {day.day}
-        </div>
-
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-wide text-blue-600">
-            Travel Day
-          </p>
-
-          <h3 className="text-xl font-bold text-gray-900">
-            {day.title}
-          </h3>
-        </div>
-      </div>
-
-      <div className="grid gap-4 p-6 md:grid-cols-3">
-
-        <TimeCard
-          icon="🌅"
-          title="Morning"
-          text={day.morning || "Plan your morning activities."}
-        />
-
-        <TimeCard
-          icon="☀️"
-          title="Afternoon"
-          text={
-            day.afternoon ||
-            "Explore attractions and enjoy local experiences."
-          }
-        />
-
-        <TimeCard
-          icon="🌙"
-          title="Evening"
-          text={
-            day.evening ||
-            "Relax, have dinner and enjoy the evening."
-          }
-        />
-
-      </div>
-
-      {day.extra.length > 0 && (
-        <div className="border-t px-6 pb-6">
-          <p className="mb-2 mt-5 text-sm font-semibold text-gray-700">
-            Additional Details
-          </p>
-
-          <div className="space-y-2 text-sm leading-6 text-gray-600">
-            {day.extra.map((line, index) => (
-              <p key={index}>
-                {line}
-              </p>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-function TimeCard({
-  icon,
-  title,
-  text,
-}: {
-  icon: string;
-  title: string;
-  text: string;
-}) {
-  return (
-    <div className="rounded-2xl border bg-white p-5">
-      <div className="flex items-center gap-2">
-        <span className="text-xl">{icon}</span>
-
-        <h4 className="font-bold text-gray-900">
-          {title}
-        </h4>
-      </div>
-
-      <p className="mt-3 text-sm leading-6 text-gray-600">
-        {text}
-      </p>
-    </div>
-  );
-}
+/* ================= SUMMARY CARD ================= */
 
 function SummaryCard({
   icon,
-  label,
+  title,
   value,
+  color,
 }: {
   icon: string;
-  label: string;
+  title: string;
   value: string;
+  color: "cyan" | "fuchsia" | "emerald" | "orange";
 }) {
+  const styles = {
+    cyan:
+      "border-cyan-400/20 bg-cyan-500/10 text-cyan-300",
+    fuchsia:
+      "border-fuchsia-400/20 bg-fuchsia-500/10 text-fuchsia-300",
+    emerald:
+      "border-emerald-400/20 bg-emerald-500/10 text-emerald-300",
+    orange:
+      "border-orange-400/20 bg-orange-500/10 text-orange-300",
+  };
+
   return (
-    <div className="rounded-2xl border bg-white p-5 shadow-sm">
-      <p className="text-sm text-gray-500">
-        {icon} {label}
+    <div
+      className={`rounded-3xl border p-5 shadow-xl backdrop-blur-xl ${styles[color]}`}
+    >
+      <p className="text-sm font-bold opacity-70">
+        {icon} {title}
       </p>
 
-      <p className="mt-2 text-2xl font-bold">
+      <p className="mt-2 text-2xl font-black text-white">
         {value}
       </p>
     </div>
   );
 }
 
+/* ================= BUDGET ROW ================= */
+
 function BudgetRow({
   icon,
   title,
   amount,
   percentage,
+  gradient,
 }: {
   icon: string;
   title: string;
   amount: number;
   percentage: number;
+  gradient: string;
 }) {
   return (
     <div>
-      <div className="mb-2 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <span className="text-xl">{icon}</span>
 
-          <span className="font-medium">
+      <div className="mb-2 flex items-center justify-between">
+
+        <div className="flex items-center gap-3">
+
+          <span className="text-2xl">
+            {icon}
+          </span>
+
+          <span className="font-bold text-white/80">
             {title}
           </span>
+
         </div>
 
-        <span className="font-bold">
+        <span className="font-black text-white">
           ₹{amount.toLocaleString("en-IN")}
         </span>
+
       </div>
 
-      <div className="h-3 overflow-hidden rounded-full bg-gray-200">
+      <div className="h-3 overflow-hidden rounded-full bg-white/10">
+
         <div
-          className="h-full rounded-full bg-blue-600"
+          className={`h-full rounded-full bg-gradient-to-r ${gradient} shadow-lg`}
           style={{
             width: `${percentage}%`,
           }}
         />
+
       </div>
 
-      <p className="mt-1 text-right text-xs text-gray-500">
+      <p className="mt-1 text-right text-xs text-white/30">
         {percentage}% of budget
       </p>
+
     </div>
   );
 }

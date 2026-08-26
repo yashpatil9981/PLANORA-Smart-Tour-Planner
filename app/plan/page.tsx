@@ -15,37 +15,37 @@ export default function PlanTrip() {
       name: "Beaches",
       icon: "🌊",
       active: "from-cyan-500 to-blue-600",
-      soft: "from-cyan-500/20 to-blue-500/20",
+      soft: "from-cyan-500/10 to-blue-500/10",
     },
     {
       name: "Food",
       icon: "🍴",
       active: "from-orange-500 to-red-500",
-      soft: "from-orange-500/20 to-red-500/20",
+      soft: "from-orange-500/10 to-red-500/10",
     },
     {
       name: "Adventure",
       icon: "🏔️",
       active: "from-emerald-500 to-green-600",
-      soft: "from-emerald-500/20 to-green-500/20",
+      soft: "from-emerald-500/10 to-green-500/10",
     },
     {
       name: "Nightlife",
       icon: "🎵",
       active: "from-fuchsia-500 to-purple-600",
-      soft: "from-fuchsia-500/20 to-purple-500/20",
+      soft: "from-fuchsia-500/10 to-purple-500/10",
     },
     {
       name: "Nature",
       icon: "🌿",
       active: "from-green-500 to-teal-600",
-      soft: "from-green-500/20 to-teal-500/20",
+      soft: "from-green-500/10 to-teal-500/10",
     },
     {
       name: "History",
       icon: "🏛️",
       active: "from-yellow-500 to-orange-600",
-      soft: "from-yellow-500/20 to-orange-500/20",
+      soft: "from-yellow-500/10 to-orange-500/10",
     },
   ];
 
@@ -112,28 +112,23 @@ export default function PlanTrip() {
   };
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-gradient-to-br from-violet-950 via-fuchsia-900 to-indigo-950 text-gray-900">
+    <main className="relative min-h-screen overflow-hidden bg-[#09001f] text-white">
 
       {/* ================= BACKGROUND ================= */}
 
-      <div className="fixed inset-0 -z-10 overflow-hidden">
-        <div className="absolute -left-40 -top-40 h-[500px] w-[500px] rounded-full bg-pink-500/40 blur-[100px] animate-pulse" />
-        <div className="absolute -right-40 top-0 h-[500px] w-[500px] rounded-full bg-cyan-500/40 blur-[100px] animate-pulse" />
-        <div className="absolute bottom-[-150px] left-[20%] h-[500px] w-[500px] rounded-full bg-purple-500/40 blur-[100px] animate-pulse" />
-        <div className="absolute bottom-[-100px] right-[10%] h-[450px] w-[450px] rounded-full bg-orange-500/30 blur-[100px] animate-pulse" />
+      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
 
-        <div className="absolute -left-40 -top-40 h-[500px] w-[500px] rounded-full bg-fuchsia-600/30 blur-[120px] animate-pulse" />
+        <div className="absolute -left-40 -top-40 h-[500px] w-[500px] rounded-full bg-pink-600/30 blur-[120px] animate-pulse" />
 
-        <div className="absolute -right-40 top-10 h-[500px] w-[500px] rounded-full bg-blue-600/30 blur-[120px] animate-pulse" />
+        <div className="absolute -right-40 top-0 h-[500px] w-[500px] rounded-full bg-cyan-500/30 blur-[120px] animate-pulse" />
 
         <div className="absolute bottom-[-200px] left-[20%] h-[500px] w-[500px] rounded-full bg-purple-600/30 blur-[120px] animate-pulse" />
 
-        <div className="absolute bottom-[-150px] right-[10%] h-[400px] w-[400px] rounded-full bg-pink-600/25 blur-[120px] animate-pulse" />
+        <div className="absolute bottom-[-150px] right-[10%] h-[450px] w-[450px] rounded-full bg-orange-500/20 blur-[120px] animate-pulse" />
 
-        {/* Small floating lights */}
         <div className="absolute left-[15%] top-[25%] h-3 w-3 rounded-full bg-cyan-300 shadow-[0_0_25px_8px_rgba(34,211,238,0.5)] animate-pulse" />
 
-        <div className="absolute right-[20%] top-[40%] h-2 w-2 rounded-full bg-pink-300 shadow-[0_0_25px_8px_rgba(244,114,182,0.5)] animate-pulse" />
+        <div className="absolute right-[20%] top-[40%] h-3 w-3 rounded-full bg-pink-300 shadow-[0_0_25px_8px_rgba(244,114,182,0.5)] animate-pulse" />
 
         <div className="absolute bottom-[25%] left-[45%] h-3 w-3 rounded-full bg-yellow-300 shadow-[0_0_25px_8px_rgba(250,204,21,0.4)] animate-pulse" />
 
@@ -141,25 +136,34 @@ export default function PlanTrip() {
 
       {/* ================= NAVBAR ================= */}
 
-      <nav className="sticky top-0 z-50 border-b border-violet-200/50 bg-gradient-to-r from-cyan-100/90 via-fuchsia-100/90 to-pink-100/90 px-6 py-5 backdrop-blur-2xl">
+      <nav className="sticky top-0 z-50 border-b border-white/10 bg-[#09001f]/75 px-6 py-5 backdrop-blur-2xl">
 
-        <div className="mx-auto flex max-w-6xl items-center justify-between">
+        <div className="mx-auto flex max-w-7xl items-center justify-between">
 
           <a
             href="/"
-            className="group text-2xl font-black tracking-tight text-gray-900"
+            className="flex items-center gap-2"
           >
-            <span className="transition group-hover:scale-110">
+            <span className="text-2xl">
               ✈️
-            </span>{" "}
-            <span className="bg-gradient-to-r from-cyan-300 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
-              Smart Tour by YSP
             </span>
+
+            <div className="flex flex-col leading-none">
+
+              <span className="text-2xl font-black tracking-tight bg-gradient-to-r from-cyan-300 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
+                PLANORA
+              </span>
+
+              <span className="mt-1 text-[10px] font-semibold tracking-wide text-white/50">
+                AI-Powered Smart Travel Planning
+              </span>
+
+            </div>
           </a>
 
           <a
             href="/"
-            className="rounded-full border border-violet-300 bg-white/50 px-5 py-2.5 text-sm font-semibold text-gray-800 backdrop-blur-xl transition duration-300 hover:scale-105 hover:border-violet-400 hover:bg-white/80 hover:text-gray-950"
+            className="rounded-full border border-white/10 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white/80 backdrop-blur-xl transition duration-300 hover:scale-105 hover:border-cyan-400/40 hover:bg-white/15 hover:text-white"
           >
             ← Back to Home
           </a>
@@ -172,22 +176,25 @@ export default function PlanTrip() {
 
       <section className="relative px-5 pb-8 pt-10 md:px-8 md:pt-14">
 
-        <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-7xl">
 
-          <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-cyan-200/90 via-fuchsia-200/90 to-indigo-200/90 p-8 shadow-2xl shadow-violet-300/50 backdrop-blur-2xl md:p-12">
+          <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-violet-900/70 via-fuchsia-900/50 to-blue-900/70 p-8 shadow-2xl shadow-purple-950/50 backdrop-blur-2xl md:p-14">
 
-            {/* Glow */}
-            <div className="absolute right-[-100px] top-[-100px] h-72 w-72 rounded-full bg-fuchsia-500/20 blur-3xl" />
+            <div className="absolute right-[-100px] top-[-100px] h-80 w-80 rounded-full bg-cyan-500/20 blur-3xl" />
 
-            <div className="relative grid items-center gap-10 md:grid-cols-2">
+            <div className="absolute bottom-[-120px] left-[-80px] h-80 w-80 rounded-full bg-pink-500/20 blur-3xl" />
+
+            <div className="relative grid items-center gap-12 md:grid-cols-2">
+
+              {/* Hero Text */}
 
               <div>
 
-                <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-2 text-sm font-bold text-cyan-300">
+                <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-5 py-2 text-sm font-bold text-cyan-300">
                   📍 {destination}, India
                 </div>
 
-                <h1 className="text-5xl font-black leading-tight text-gray-900 md:text-7xl">
+                <h1 className="text-5xl font-black leading-tight md:text-7xl">
 
                   Plan Your
 
@@ -197,7 +204,7 @@ export default function PlanTrip() {
 
                 </h1>
 
-                <p className="mt-5 max-w-xl text-lg leading-8 text-gray-700">
+                <p className="mt-6 max-w-xl text-lg leading-8 text-white/65">
                   Build a personalized travel experience based
                   on your destination, budget, duration and
                   interests.
@@ -209,11 +216,11 @@ export default function PlanTrip() {
                     🌊 Explore
                   </span>
 
-                  <span className="rounded-full border border-pink-400/30 bg-pink-400/10 px-4 py-2 text-sm font-bold text-pink-300">
+                  <span className="rounded-full border border-fuchsia-400/30 bg-fuchsia-400/10 px-4 py-2 text-sm font-bold text-fuchsia-300">
                     🎉 Experience
                   </span>
 
-                  <span className="rounded-full border border-green-400/30 bg-green-400/10 px-4 py-2 text-sm font-bold text-green-300">
+                  <span className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm font-bold text-emerald-300">
                     🌿 Discover
                   </span>
 
@@ -222,25 +229,26 @@ export default function PlanTrip() {
               </div>
 
               {/* Illustration */}
-              <div className="relative hidden h-72 md:block">
+
+              <div className="relative hidden h-80 md:block">
 
                 <div className="absolute right-16 top-0 text-7xl animate-bounce">
                   ✈️
                 </div>
 
-                <div className="absolute left-10 bottom-5 text-7xl">
+                <div className="absolute left-10 bottom-5 text-8xl">
                   🌴
                 </div>
 
-                <div className="absolute right-10 bottom-0 text-8xl">
+                <div className="absolute right-8 bottom-0 text-8xl">
                   🏖️
                 </div>
 
-                <div className="absolute left-28 top-16 text-5xl animate-pulse">
+                <div className="absolute left-28 top-20 text-5xl animate-pulse">
                   ☀️
                 </div>
 
-                <div className="absolute inset-8 rounded-full bg-gradient-to-r from-cyan-500/20 via-fuchsia-500/20 to-pink-500/20 blur-3xl" />
+                <div className="absolute inset-10 rounded-full bg-gradient-to-r from-cyan-500/20 via-fuchsia-500/20 to-pink-500/20 blur-3xl" />
 
               </div>
 
@@ -258,9 +266,10 @@ export default function PlanTrip() {
 
         <div className="mx-auto max-w-5xl">
 
-          <div className="rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-violet-200/90 via-fuchsia-200/90 to-blue-200/90 p-6 shadow-2xl shadow-violet-300/50 backdrop-blur-2xl md:p-10">
+          <div className="rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-white/10 p-6 shadow-2xl shadow-black/30 backdrop-blur-2xl md:p-10">
 
             {/* Header */}
+
             <div className="mb-9 flex items-center gap-4">
 
               <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-600 text-2xl shadow-lg shadow-blue-500/30">
@@ -269,11 +278,11 @@ export default function PlanTrip() {
 
               <div>
 
-                <h2 className="text-3xl font-black text-gray-900">
+                <h2 className="text-3xl font-black text-white">
                   Your Trip Details
                 </h2>
 
-                <p className="mt-1 text-gray-700">
+                <p className="mt-1 text-white/50">
                   Customize your perfect travel experience.
                 </p>
 
@@ -282,6 +291,7 @@ export default function PlanTrip() {
             </div>
 
             {/* Error */}
+
             {error && (
               <div className="mb-7 rounded-2xl border border-red-400/30 bg-red-500/10 px-5 py-4 font-semibold text-red-300">
                 ⚠️ {error}
@@ -289,6 +299,7 @@ export default function PlanTrip() {
             )}
 
             {/* Destination */}
+
             <div className="mb-8">
 
               <label className="mb-3 block text-sm font-black text-cyan-300">
@@ -305,7 +316,7 @@ export default function PlanTrip() {
                     setError("");
                   }}
                   placeholder="e.g. Goa"
-                  className="w-full rounded-2xl border border-cyan-400/20 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 px-5 py-4 text-lg font-bold text-gray-900 outline-none transition duration-300 placeholder:text-gray-500 focus:border-cyan-400/60 focus:bg-cyan-500/15 focus:ring-4 focus:ring-cyan-400/10"
+                  className="w-full rounded-2xl border border-cyan-400/20 bg-white/5 px-5 py-4 text-lg font-bold text-white outline-none transition duration-300 placeholder:text-white/30 focus:border-cyan-400/60 focus:bg-cyan-400/10 focus:ring-4 focus:ring-cyan-400/10"
                 />
 
                 <span className="absolute right-5 top-4 text-2xl">
@@ -317,9 +328,11 @@ export default function PlanTrip() {
             </div>
 
             {/* Days + Travelers */}
+
             <div className="grid gap-7 md:grid-cols-2">
 
               {/* Days */}
+
               <div>
 
                 <label className="mb-3 block text-sm font-black text-pink-300">
@@ -338,7 +351,7 @@ export default function PlanTrip() {
                     −
                   </button>
 
-                  <div className="flex-1 rounded-2xl border border-pink-400/20 bg-gradient-to-r from-pink-500/10 to-fuchsia-500/10 py-3.5 text-center text-lg font-black text-gray-900">
+                  <div className="flex-1 rounded-2xl border border-pink-400/20 bg-pink-500/10 py-3.5 text-center text-lg font-black text-white">
                     {days} Days
                   </div>
 
@@ -357,6 +370,7 @@ export default function PlanTrip() {
               </div>
 
               {/* Travelers */}
+
               <div>
 
                 <label className="mb-3 block text-sm font-black text-blue-300">
@@ -377,7 +391,7 @@ export default function PlanTrip() {
                     −
                   </button>
 
-                  <div className="flex-1 rounded-2xl border border-blue-400/20 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 py-3.5 text-center text-lg font-black text-gray-900">
+                  <div className="flex-1 rounded-2xl border border-blue-400/20 bg-blue-500/10 py-3.5 text-center text-lg font-black text-white">
                     {travelers} People
                   </div>
 
@@ -400,6 +414,7 @@ export default function PlanTrip() {
             </div>
 
             {/* Budget */}
+
             <div className="mt-8">
 
               <label className="mb-3 block text-sm font-black text-emerald-300">
@@ -420,7 +435,7 @@ export default function PlanTrip() {
                     setBudget(e.target.value);
                     setError("");
                   }}
-                  className="w-full rounded-2xl border border-emerald-400/20 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 py-4 pl-11 pr-5 text-lg font-black text-gray-900 outline-none transition duration-300 placeholder:text-gray-500 focus:border-emerald-400/60 focus:ring-4 focus:ring-emerald-400/10"
+                  className="w-full rounded-2xl border border-emerald-400/20 bg-emerald-500/10 py-4 pl-11 pr-5 text-lg font-black text-white outline-none transition duration-300 placeholder:text-white/30 focus:border-emerald-400/60 focus:bg-emerald-500/15 focus:ring-4 focus:ring-emerald-400/10"
                   placeholder="15000"
                 />
 
@@ -430,13 +445,14 @@ export default function PlanTrip() {
 
               </div>
 
-              <p className="mt-2 text-sm text-gray-600">
+              <p className="mt-2 text-sm text-white/40">
                 Minimum budget: ₹1,000
               </p>
 
             </div>
 
             {/* Interests */}
+
             <div className="mt-9">
 
               <div className="mb-5">
@@ -445,7 +461,7 @@ export default function PlanTrip() {
                   ⭐ What are you interested in?
                 </label>
 
-                <p className="mt-1 text-sm text-gray-600">
+                <p className="mt-1 text-sm text-white/40">
                   Select everything you enjoy.
                 </p>
 
@@ -465,8 +481,8 @@ export default function PlanTrip() {
                       key={interest.name}
                       className={`group relative flex cursor-pointer items-center justify-between overflow-hidden rounded-2xl border p-4 transition duration-300 hover:-translate-y-1 hover:shadow-xl ${
                         selected
-                          ? `border-white/40 bg-gradient-to-r ${interest.active} shadow-lg`
-                          : `border-violet-200/70 bg-white/35 ${interest.soft} hover:border-violet-300`
+                          ? `border-white/30 bg-gradient-to-r ${interest.active} shadow-lg`
+                          : `border-white/10 bg-gradient-to-r ${interest.soft} hover:border-white/20`
                       }`}
                     >
 
@@ -484,7 +500,7 @@ export default function PlanTrip() {
                           className={`font-bold ${
                             selected
                               ? "text-white"
-                              : "text-gray-800"
+                              : "text-white/80"
                           }`}
                         >
                           {interest.name}
@@ -510,22 +526,25 @@ export default function PlanTrip() {
             </div>
 
             {/* Selected Interests */}
-            {selectedInterests.length > 0 && (
-              <div className="mt-6 rounded-2xl border border-violet-200/70 bg-gradient-to-r from-purple-100/70 via-fuchsia-100/70 to-blue-100/70 p-4">
 
-                <p className="mb-3 text-xs font-bold uppercase tracking-widest text-gray-600">
+            {selectedInterests.length > 0 && (
+              <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-xl">
+
+                <p className="mb-3 text-xs font-bold uppercase tracking-widest text-white/40">
                   Selected Interests
                 </p>
 
                 <div className="flex flex-wrap gap-2">
 
                   {selectedInterests.map((interest) => (
+
                     <span
                       key={interest}
-                      className="rounded-full border border-white/10 bg-white/60 px-3 py-1.5 text-sm font-bold text-gray-800"
+                      className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1.5 text-sm font-bold text-cyan-300"
                     >
                       ✓ {interest}
                     </span>
+
                   ))}
 
                 </div>
@@ -534,6 +553,7 @@ export default function PlanTrip() {
             )}
 
             {/* Generate Button */}
+
             <button
               type="button"
               onClick={generateTrip}
@@ -552,7 +572,7 @@ export default function PlanTrip() {
 
             </button>
 
-            <p className="mt-5 text-center text-xs font-medium text-gray-600">
+            <p className="mt-5 text-center text-xs font-medium text-white/40">
               🌍 Your itinerary will be customized according to
               your destination, budget and interests.
             </p>
@@ -563,14 +583,23 @@ export default function PlanTrip() {
 
       </section>
 
-      {/* Bottom decoration */}
-      <div className="pointer-events-none fixed bottom-7 left-7 hidden text-4xl md:block">
-        🌴
-      </div>
+      {/* ================= FOOTER ================= */}
 
-      <div className="pointer-events-none fixed bottom-7 right-7 hidden text-4xl md:block">
-        ✨
-      </div>
+      <footer className="border-t border-white/10 bg-black/20 px-6 py-10 text-center backdrop-blur-xl">
+
+        <p className="text-xl font-black">
+          ✈️{" "}
+
+          <span className="bg-gradient-to-r from-cyan-300 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
+            PLANORA
+          </span>
+        </p>
+
+        <p className="mt-2 text-sm text-white/40">
+          AI-Powered Smart Travel Planning
+        </p>
+
+      </footer>
 
     </main>
   );
