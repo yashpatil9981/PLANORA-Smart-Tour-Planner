@@ -237,12 +237,21 @@ export default function ResultPage() {
 
           <a
             href="/"
-            className="text-2xl font-black"
+            className="group flex items-center gap-2 transition duration-300 hover:scale-105"
           >
-            ✈️{" "}
-            <span className="bg-gradient-to-r from-cyan-300 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
-              Smart Tour by YSP
+            <span className="text-2xl transition duration-500 group-hover:-rotate-12 group-hover:scale-110">
+              ✈️
             </span>
+
+            <div className="flex flex-col leading-none">
+              <span className="text-2xl font-black tracking-tight bg-gradient-to-r from-cyan-300 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
+                PLANORA
+              </span>
+
+              <span className="mt-1 text-[10px] font-semibold tracking-wide text-white/50">
+                AI-Powered Smart Travel Planning
+              </span>
+            </div>
           </a>
 
           <div className="flex gap-3">
@@ -275,7 +284,7 @@ export default function ResultPage() {
 
           {/* ================= HEADER ================= */}
 
-          <div className="mb-8">
+          <div className="mb-8 animate-[fadeInUp_0.7s_ease-out_both]">
 
             <a
               href="/plan"
@@ -312,7 +321,7 @@ export default function ResultPage() {
 
               {!loading && !error && (
 
-                <div className="rounded-full border border-emerald-400/20 bg-emerald-500/10 px-5 py-3 text-sm font-black text-emerald-300">
+                <div className="animate-pulse rounded-full border border-emerald-400/20 bg-emerald-500/10 px-5 py-3 text-sm font-black text-emerald-300 shadow-lg shadow-emerald-500/10">
                   ✓ Trip Ready
                 </div>
 
@@ -324,7 +333,7 @@ export default function ResultPage() {
 
           {/* ================= SUMMARY ================= */}
 
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4 animate-[fadeInUp_0.7s_ease-out_0.15s_both]">
 
             <SummaryCard
               icon="📅"
@@ -360,7 +369,7 @@ export default function ResultPage() {
 
           {interests.length > 0 && (
 
-            <div className="mt-6 rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur-2xl">
+            <div className="mt-6 rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur-2xl animate-[fadeInUp_0.7s_ease-out_0.25s_both]">
 
               <h2 className="text-xl font-black">
                 ⭐ Your Interests
@@ -389,7 +398,7 @@ export default function ResultPage() {
 
           {loading && (
 
-            <div className="mt-8 rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-violet-900/50 via-fuchsia-900/30 to-blue-900/50 p-16 text-center shadow-2xl backdrop-blur-2xl">
+            <div className="mt-8 rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-violet-900/50 via-fuchsia-900/30 to-blue-900/50 p-16 text-center shadow-2xl backdrop-blur-2xl animate-[fadeInUp_0.6s_ease-out_both]">
 
               <div className="mx-auto h-16 w-16 animate-spin rounded-full border-4 border-white/10 border-t-cyan-400 border-r-fuchsia-500" />
 
@@ -409,7 +418,7 @@ export default function ResultPage() {
 
           {!loading && error && (
 
-            <div className="mt-8 rounded-[2rem] border border-red-400/20 bg-red-500/10 p-8 backdrop-blur-xl">
+            <div className="mt-8 rounded-[2rem] border border-red-400/20 bg-red-500/10 p-8 backdrop-blur-xl animate-[fadeInUp_0.6s_ease-out_both]">
 
               <h2 className="text-2xl font-black text-red-300">
                 ⚠️ Unable to generate trip
@@ -446,7 +455,7 @@ export default function ResultPage() {
 
               {/* ITINERARY */}
 
-              <div className="mt-8 rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-white/10 p-7 shadow-2xl backdrop-blur-2xl md:p-9">
+              <div className="mt-8 rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-white/10 p-7 shadow-2xl backdrop-blur-2xl md:p-9 animate-[fadeInUp_0.8s_ease-out_0.2s_both]">
 
                 <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
 
@@ -489,7 +498,7 @@ export default function ResultPage() {
 
                         <div
                           key={index}
-                          className="group rounded-3xl border border-white/10 bg-gradient-to-br from-cyan-500/10 via-fuchsia-500/5 to-purple-500/10 p-6 transition duration-300 hover:border-cyan-400/20 hover:shadow-xl hover:shadow-purple-500/10"
+                          className="group rounded-3xl border border-white/10 bg-gradient-to-br from-cyan-500/10 via-fuchsia-500/5 to-purple-500/10 p-6 opacity-0 animate-[fadeInUp_0.6s_ease-out_both] transition duration-300 hover:-translate-y-1 hover:border-cyan-400/20 hover:shadow-xl hover:shadow-purple-500/10"
                         >
 
                           <div className="flex items-center gap-4">
@@ -522,7 +531,7 @@ export default function ResultPage() {
 
               {/* ================= BUDGET ================= */}
 
-              <div className="mt-8 rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-emerald-500/10 via-white/5 to-cyan-500/10 p-7 shadow-2xl backdrop-blur-2xl md:p-9">
+              <div className="mt-8 rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-emerald-500/10 via-white/5 to-cyan-500/10 p-7 shadow-2xl backdrop-blur-2xl md:p-9 animate-[fadeInUp_0.8s_ease-out_0.35s_both]">
 
                 <h2 className="text-3xl font-black">
                   💰 Budget Breakdown
@@ -593,7 +602,7 @@ export default function ResultPage() {
 
               {/* ================= MAP ================= */}
 
-              <div className="mt-8 rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-blue-500/10 via-white/5 to-cyan-500/10 p-7 shadow-2xl backdrop-blur-2xl md:p-9">
+              <div className="mt-8 rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-blue-500/10 via-white/5 to-cyan-500/10 p-7 shadow-2xl backdrop-blur-2xl md:p-9 animate-[fadeInUp_0.8s_ease-out_0.5s_both]">
 
                 <h2 className="text-3xl font-black">
                   📍 Explore {destination}
@@ -679,15 +688,40 @@ export default function ResultPage() {
         <p className="text-xl font-black">
           ✈️{" "}
           <span className="bg-gradient-to-r from-cyan-300 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
-            Smart Tour by YSP
+            PLANORA
           </span>
         </p>
 
         <p className="mt-2 text-sm text-white/40">
-          Plan smarter. Travel better.
+          AI-Powered Smart Travel Planning
         </p>
 
       </footer>
+
+
+      {/* ================= ANIMATION STYLES ================= */}
+
+      <style jsx global>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(24px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+          }
+        }
+      `}</style>
 
     </main>
   );

@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function PlanTrip() {
+  const router = useRouter();
+  const [isGenerating, setIsGenerating] = useState(false);
   const [destination, setDestination] = useState("Goa");
   const [days, setDays] = useState(3);
   const [travelers, setTravelers] = useState(2);
@@ -71,6 +74,7 @@ export default function PlanTrip() {
 
   const generateTrip = () => {
     setError("");
+    setIsGenerating(false);
 
     const cleanDestination = destination.trim();
     const numericBudget = Number(budget);
@@ -108,7 +112,8 @@ export default function PlanTrip() {
       interests: selectedInterests.join(","),
     });
 
-    window.location.href = `/result?${params.toString()}`;
+    setIsGenerating(true);
+    router.push(`/result?${params.toString()}`);
   };
 
   return (
@@ -557,13 +562,14 @@ export default function PlanTrip() {
             <button
               type="button"
               onClick={generateTrip}
-              className="group relative mt-10 w-full overflow-hidden rounded-2xl bg-gradient-to-r from-cyan-500 via-fuchsia-500 to-pink-500 bg-[length:200%_auto] py-5 text-lg font-black text-white shadow-2xl shadow-fuchsia-600/30 transition-all duration-700 hover:scale-[1.02] hover:-translate-y-1 hover:bg-right hover:shadow-fuchsia-500/50 active:scale-[0.98] motion-safe:animate-[glow_3s_ease-in-out_infinite]"
+              disabled={isGenerating}
+              className="group relative mt-10 w-full overflow-hidden rounded-2xl bg-gradient-to-r from-cyan-500 via-fuchsia-500 to-pink-500 bg-[length:200%_auto] py-5 text-lg font-black text-white shadow-2xl shadow-fuchsia-600/30 transition-all duration-700 hover:scale-[1.02] hover:-translate-y-1 hover:bg-right hover:shadow-fuchsia-500/50 active:scale-[0.98] disabled:cursor-wait disabled:opacity-80 motion-safe:animate-[glow_3s_ease-in-out_infinite]"
             >
 
               <span className="absolute inset-0 -translate-x-full bg-white/20 transition duration-700 group-hover:translate-x-full" />
 
               <span className="relative flex items-center justify-center gap-3">
-                ✨ Generate My Trip
+                {isGenerating ? "✨ Creating Your Trip..." : "✨ Generate My Trip"}
 
                 <span className="text-2xl transition duration-300 group-hover:translate-x-2">
                   →
