@@ -118,19 +118,19 @@ export default function PlanTrip() {
 
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
 
-        <div className="absolute -left-40 -top-40 h-[500px] w-[500px] rounded-full bg-pink-600/30 blur-[120px] animate-pulse" />
+        <div className="absolute -left-40 -top-40 h-[500px] w-[500px] rounded-full bg-pink-600/30 blur-[120px] animate-pulse motion-safe:animate-[pulse_4s_ease-in-out_infinite]" />
 
         <div className="absolute -right-40 top-0 h-[500px] w-[500px] rounded-full bg-cyan-500/30 blur-[120px] animate-pulse" />
 
-        <div className="absolute bottom-[-200px] left-[20%] h-[500px] w-[500px] rounded-full bg-purple-600/30 blur-[120px] animate-pulse" />
+        <div className="absolute bottom-[-200px] left-[20%] h-[500px] w-[500px] rounded-full bg-purple-600/30 blur-[120px] motion-safe:animate-[pulse_6s_ease-in-out_infinite]" />
 
-        <div className="absolute bottom-[-150px] right-[10%] h-[450px] w-[450px] rounded-full bg-orange-500/20 blur-[120px] animate-pulse" />
+        <div className="absolute bottom-[-150px] right-[10%] h-[450px] w-[450px] rounded-full bg-orange-500/20 blur-[120px] motion-safe:animate-[pulse_5s_ease-in-out_infinite]" />
 
-        <div className="absolute left-[15%] top-[25%] h-3 w-3 rounded-full bg-cyan-300 shadow-[0_0_25px_8px_rgba(34,211,238,0.5)] animate-pulse" />
+        <div className="absolute left-[15%] top-[25%] h-3 w-3 rounded-full bg-cyan-300 shadow-[0_0_25px_8px_rgba(34,211,238,0.5)] motion-safe:animate-[pulse_2s_ease-in-out_infinite]" />
 
-        <div className="absolute right-[20%] top-[40%] h-3 w-3 rounded-full bg-pink-300 shadow-[0_0_25px_8px_rgba(244,114,182,0.5)] animate-pulse" />
+        <div className="absolute right-[20%] top-[40%] h-3 w-3 rounded-full bg-pink-300 shadow-[0_0_25px_8px_rgba(244,114,182,0.5)] motion-safe:animate-[pulse_2.5s_ease-in-out_infinite]" />
 
-        <div className="absolute bottom-[25%] left-[45%] h-3 w-3 rounded-full bg-yellow-300 shadow-[0_0_25px_8px_rgba(250,204,21,0.4)] animate-pulse" />
+        <div className="absolute bottom-[25%] left-[45%] h-3 w-3 rounded-full bg-yellow-300 shadow-[0_0_25px_8px_rgba(250,204,21,0.4)] motion-safe:animate-[pulse_3s_ease-in-out_infinite]" />
 
       </div>
 
@@ -142,7 +142,7 @@ export default function PlanTrip() {
 
           <a
             href="/"
-            className="flex items-center gap-2"
+            className="group flex items-center gap-2"
           >
             <span className="text-2xl">
               ✈️
@@ -232,7 +232,7 @@ export default function PlanTrip() {
 
               <div className="relative hidden h-80 md:block">
 
-                <div className="absolute right-16 top-0 text-7xl animate-bounce">
+                <div className="absolute right-16 top-0 text-7xl motion-safe:animate-[float_4s_ease-in-out_infinite]">
                   ✈️
                 </div>
 
@@ -244,7 +244,7 @@ export default function PlanTrip() {
                   🏖️
                 </div>
 
-                <div className="absolute left-28 top-20 text-5xl animate-pulse">
+                <div className="absolute left-28 top-20 text-5xl motion-safe:animate-[pulse_3s_ease-in-out_infinite]">
                   ☀️
                 </div>
 
@@ -266,7 +266,7 @@ export default function PlanTrip() {
 
         <div className="mx-auto max-w-5xl">
 
-          <div className="rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-white/10 p-6 shadow-2xl shadow-black/30 backdrop-blur-2xl md:p-10">
+          <div className="rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-white/10 p-6 shadow-2xl shadow-black/30 backdrop-blur-2xl motion-safe:animate-[fadeUp_0.9s_ease-out] md:p-10">
 
             {/* Header */}
 
@@ -479,7 +479,7 @@ export default function PlanTrip() {
                   return (
                     <label
                       key={interest.name}
-                      className={`group relative flex cursor-pointer items-center justify-between overflow-hidden rounded-2xl border p-4 transition duration-300 hover:-translate-y-1 hover:shadow-xl ${
+                      className={`group relative flex cursor-pointer items-center justify-between overflow-hidden rounded-2xl border p-4 transition duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-2xl ${
                         selected
                           ? `border-white/30 bg-gradient-to-r ${interest.active} shadow-lg`
                           : `border-white/10 bg-gradient-to-r ${interest.soft} hover:border-white/20`
@@ -557,7 +557,7 @@ export default function PlanTrip() {
             <button
               type="button"
               onClick={generateTrip}
-              className="group relative mt-10 w-full overflow-hidden rounded-2xl bg-gradient-to-r from-cyan-500 via-fuchsia-500 to-pink-500 bg-[length:200%_auto] py-5 text-lg font-black text-white shadow-2xl shadow-fuchsia-600/30 transition-all duration-700 hover:scale-[1.02] hover:bg-right hover:shadow-fuchsia-500/50 active:scale-[0.98]"
+              className="group relative mt-10 w-full overflow-hidden rounded-2xl bg-gradient-to-r from-cyan-500 via-fuchsia-500 to-pink-500 bg-[length:200%_auto] py-5 text-lg font-black text-white shadow-2xl shadow-fuchsia-600/30 transition-all duration-700 hover:scale-[1.02] hover:-translate-y-1 hover:bg-right hover:shadow-fuchsia-500/50 active:scale-[0.98] motion-safe:animate-[glow_3s_ease-in-out_infinite]"
             >
 
               <span className="absolute inset-0 -translate-x-full bg-white/20 transition duration-700 group-hover:translate-x-full" />
@@ -582,6 +582,31 @@ export default function PlanTrip() {
         </div>
 
       </section>
+
+      <style jsx>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(18px) scale(.98); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes float {
+          0%, 100% { transform: translateY(0) rotate(-4deg); }
+          50% { transform: translateY(-18px) rotate(4deg); }
+        }
+        @keyframes glow {
+          0%, 100% { filter: brightness(1); }
+          50% { filter: brightness(1.15); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          *, *::before, *::after {
+            animation-duration: .01ms !important;
+            transition-duration: .01ms !important;
+          }
+        }
+      `}</style>
 
       {/* ================= FOOTER ================= */}
 
