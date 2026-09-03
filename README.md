@@ -1,2 +1,2 @@
-# PLANORA Smart-Tour-Planner
+# Smart-Tour-Planner
 AI-Powered Travel Planning Web Application
